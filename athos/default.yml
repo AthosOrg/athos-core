@@ -1,0 +1,11 @@
+verbose: False
+
+matrix:
+  hostname: https://matrix.org
+  username: Athos
+  password: null
+
+plugins:
+  CarrefourSQLite:
+    # relative to the config directory
+    database: 'carrefour.sqlite'
