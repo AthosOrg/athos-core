@@ -9,3 +9,4 @@ plugins:
   CarrefourSQLite:
     # relative to the config directory
     database: 'carrefour.sqlite'
+    currency: 'EUR'

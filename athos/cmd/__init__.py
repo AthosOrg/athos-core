@@ -8,7 +8,7 @@ def file_argument(parser, arg):
     if not os.path.exists(arg):
         parser.error("The file %s does not exist!" % arg)
     else:
-        return arg
+        return os.path.abspath(arg)
 
 def main():
     # parse command line arguments
@@ -19,6 +19,9 @@ def main():
                         type=lambda x: file_argument(parser, x))
 
     args = parser.parse_args()
+
+    # cd to the config file directory
+    os.chdir(os.path.dirname(args.config))
 
     # parse the config file
     with open(args.config) as f:
