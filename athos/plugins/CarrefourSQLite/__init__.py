@@ -117,3 +117,26 @@ class Plugin(athos.plugin.Plugin):
         message = 'URL for %s Carrefour: %s \n' % (country, url)
 
         self.matrix.api.send_message(room, message)        
+
+    @athos.plugin.command(regex=r'expensive (?P<text>.+)',
+        description='expensive <product>: Searches for the highest price products.\n   Example: expensive pano')
+    def expensive(self, room, event, match,):
+        search_keyword = match.group('text')
+    
+        c = self.conn.cursor()
+        c.execute(
+            '''
+                SELECT description, round(avg(cost), 2)
+                FROM items
+                WHERE description LIKE ?
+                GROUP BY description
+                ORDER BY 2 desc
+                LIMIT 5
+            ''', ['%%%s%%' % search_keyword])
+
+        message = 'Results for "%s", sorted by price:\n\n' % search_keyword
+
+        for row in c:
+            message += '%s - %s %s\n' % (row + (self.config['currency'],))
+
+        self.matrix.api.send_message(room, message)
