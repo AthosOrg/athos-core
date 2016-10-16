@@ -97,11 +97,11 @@ class Plugin(athos.plugin.Plugin):
                 WHERE (description LIKE ?)
                 GROUP BY description
                 HAVING (avg_price BETWEEN ? AND ?)
-                ORDER BY 2
+                ORDER BY count(description)
                 LIMIT 5
             ''', ['%%%s%%' % search_keyword, lower_limit, upper_limit])
 
-        message = 'Results for "%s", between %s and %s %s: \n\n' % (search_keyword, lower_limit, upper_limit,self.config['currency'])
+        message = 'Results for "%s", between %s and %s %s, sorted by popularity: \n\n' % (search_keyword, lower_limit, upper_limit,self.config['currency'])
 
         for row in c:
             message += '%s - %s %s\n' % (row + (self.config['currency'],))
