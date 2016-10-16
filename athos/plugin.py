@@ -19,8 +19,9 @@ def command(**options):
 
 
 class Plugin(object):
-    def __init__(self, matrix, config):
+    def __init__(self, matrix, athos, config):
         self.matrix = matrix
+        self.athos = athos
         self.config = config
 
 

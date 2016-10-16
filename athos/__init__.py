@@ -134,7 +134,8 @@ class Athos(object):
 
         self.handlers.append({
             'handler': handler,
-            'matchers': matchers
+            'matchers': matchers,
+            'description': options.get('description')
         })
 
     def check_handlers(self, room, event):
@@ -224,7 +225,7 @@ def main(config):
     # load the plugins
     for plug_name, plug_config in config['plugins'].items():
         plugin_cls = importlib.import_module('athos.plugins.%s' % plug_name).Plugin
-        plugin_obj = plugin_cls(core.matrix, plug_config)
+        plugin_obj = plugin_cls(core.matrix, core, plug_config)
         core.load_plugin(plugin_obj)
 
     # start Athos
