@@ -18,7 +18,7 @@ if [ -d "$ENV_DIR" ]; then
     echo "Environment directory already exists, updating"
 else
     # create the virtualenv
-    virtualenv "$ENV_DIR"
+    virtualenv --python=python3 "$ENV_DIR"
 fi
 
 # activate the virtualenv

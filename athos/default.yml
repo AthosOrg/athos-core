@@ -10,3 +10,4 @@ plugins:
     # relative to the config directory
     database: 'carrefour.sqlite'
     currency: 'EUR'
+    max_results: 15
